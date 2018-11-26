@@ -45,7 +45,6 @@ class MainActivity : AppCompatActivity() {
 
             private fun downloadXML(urlPath: String?): String {
                 val xmlResult = StringBuilder()
-
                 try {
                     val url = URL(urlPath)
                     val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
@@ -67,10 +66,11 @@ class MainActivity : AppCompatActivity() {
                     Log.e(tag, "downloadXML: Invalid XML URL ${exception.message}")
                 } catch (exception: IOException) {
                     Log.e(tag, "downloadXML: IOException reading data ${exception.message}")
+                } catch (exception: SecurityException) {
+                    Log.e(tag, "downloadXML: Security Exception, needs permission ${exception.message}")
                 } catch (exception: Exception) {
                     Log.e(tag, "downloadXML: Unknown exception ${exception.message}")
                 }
-
                 return xmlResult.toString()
             }
         }
