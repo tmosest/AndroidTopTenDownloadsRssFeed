@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         private class DownloadData : AsyncTask<String, Void, String>() {
             private val TAG = "DownloadData"
             override fun doInBackground(vararg p0: String?): String {
-                Log.d(TAG, "onPostExecute parameter is ${p0[0]}")
+                Log.d(TAG, "doInBackground parameter is ${p0[0]}")
                 return "doInBackgroundComplete"
             }
 
