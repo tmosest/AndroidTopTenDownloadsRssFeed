@@ -1,6 +1,7 @@
 package com.tmosest.top10downloads
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,8 @@ class FeedAdapter(context: Context, val resource: Int, val entries: List<FeedEnt
     private val inflater = LayoutInflater.from(context)
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view = inflater.inflate(resource, parent, false)
+        Log.d(tag, "reused a view ${convertView != null}")
+        val view: View = convertView ?: inflater.inflate(resource, parent, false)
 
         val tvName = view.findViewById<TextView>(R.id.tvName)
         val tvArtist = view.findViewById<TextView>(R.id.tvArtist)
