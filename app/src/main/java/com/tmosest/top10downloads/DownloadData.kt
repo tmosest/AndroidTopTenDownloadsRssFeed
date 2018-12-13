@@ -34,8 +34,11 @@ class DownloadData(context: Context, listView: ListView) : AsyncTask<String, Voi
         val parseApplication = ParseApplication()
         parseApplication.parse(result)
 
-        val arrayAdapter = ArrayAdapter<FeedEntry>(context, R.layout.list_item, parseApplication.applications)
-        listView.adapter = arrayAdapter
+        // val arrayAdapter = ArrayAdapter<FeedEntry>(context, R.layout.list_item, parseApplication.applications)
+        // listView.adapter = arrayAdapter
+
+        val feedAdapter = FeedAdapter(context, R.layout.list_record, parseApplication.applications)
+        listView.adapter = feedAdapter
     }
 
     private fun downloadXML(urlPath: String?): String {
