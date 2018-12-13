@@ -10,9 +10,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
     private val tag = "MainActivity"
     private var downloadData: DownloadData? = null
+    private var selectedFeedOption = "topfreeapplications"
+    private var selectedFeedAmount = "10"
 
-    private fun downLoadAppleInformation(feedOption: String = "topfreeapplications") {
-        val url = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/$feedOption/limit=25/xml"
+    private fun downLoadAppleInformation() {
+        val url = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/$selectedFeedOption/limit=$selectedFeedAmount/xml"
+        Log.d(tag, "downLoadAppleInformation: called $url")
         downloadData = DownloadData(this, lvTopDownloads)
         downloadData?.execute(url)
     }
@@ -36,13 +39,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val feedOption = when (item.itemId) {
-            R.id.mnuFree    -> "topfreeapplications"
-            R.id.mnuPaid    -> "toppaidapplications"
-            R.id.mnuSongs   -> "topsongs"
+        when (item.itemId) {
+            R.id.mnuFree    -> selectedFeedOption = "topfreeapplications"
+            R.id.mnuPaid    -> selectedFeedOption = "toppaidapplications"
+            R.id.mnuSongs   -> selectedFeedOption = "topsongs"
+            R.id.mnuTop10   -> {
+                selectedFeedAmount = "10"
+                item.isChecked = true
+            }
+            R.id.mnuTop25   -> {
+                selectedFeedAmount = "25"
+                item.isChecked = true
+            }
             else -> return super.onOptionsItemSelected(item)
         }
-        downLoadAppleInformation(feedOption)
+        downLoadAppleInformation()
         return true
     }
 }
