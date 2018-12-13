@@ -1,5 +1,8 @@
 package com.tmosest.top10downloads
 
+/**
+ * Data model for an entry in the feed
+ */
 class FeedEntry {
     var name: String = ""
     var artist: String = ""

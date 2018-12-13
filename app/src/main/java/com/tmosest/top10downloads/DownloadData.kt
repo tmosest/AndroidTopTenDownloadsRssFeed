@@ -3,11 +3,13 @@ package com.tmosest.top10downloads
 import android.content.Context
 import android.os.AsyncTask
 import android.util.Log
-import android.widget.ArrayAdapter
 import android.widget.ListView
 import java.net.URL
 import kotlin.properties.Delegates
 
+/**
+ * Example of a custom asynchronous task.
+ */
 class DownloadData(context: Context, listView: ListView) : AsyncTask<String, Void, String>() {
     private val tag = "DownloadData"
 

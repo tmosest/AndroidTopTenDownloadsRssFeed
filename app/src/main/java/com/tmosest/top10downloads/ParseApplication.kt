@@ -5,6 +5,9 @@ import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserFactory
 import java.lang.Exception
 
+/**
+ * XML parser for our application
+ */
 class ParseApplication {
     private val tag = "PrivateApplication"
     val applications = ArrayList<FeedEntry>()
