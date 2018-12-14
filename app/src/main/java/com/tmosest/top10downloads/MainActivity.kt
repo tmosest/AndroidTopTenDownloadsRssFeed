@@ -12,12 +12,19 @@ class MainActivity : AppCompatActivity() {
     private var downloadData: DownloadData? = null
     private var selectedFeedOption = "topfreeapplications"
     private var selectedFeedAmount = "10"
+    private var previousSelectedFeedOption = ""
+    private var previousSelectedFeedAmount = ""
 
     private fun downLoadAppleInformation() {
+        if (previousSelectedFeedOption == selectedFeedOption && previousSelectedFeedAmount == selectedFeedAmount) {
+            return
+        }
         val url = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/$selectedFeedOption/limit=$selectedFeedAmount/xml"
         Log.d(tag, "downLoadAppleInformation: called $url")
         downloadData = DownloadData(this, lvTopDownloads)
         downloadData?.execute(url)
+        previousSelectedFeedAmount = selectedFeedAmount
+        previousSelectedFeedOption = selectedFeedOption
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
