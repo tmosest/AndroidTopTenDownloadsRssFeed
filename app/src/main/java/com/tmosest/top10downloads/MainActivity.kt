@@ -7,6 +7,9 @@ import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 
+private const val STATE_AMOUNT = "selectedAmount"
+private const val STATE_OPTION = "selectedOption"
+
 class MainActivity : AppCompatActivity() {
     private val tag = "MainActivity"
     private var downloadData: DownloadData? = null
@@ -31,8 +34,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Log.d(tag, "onCreate: called")
-        downLoadAppleInformation()
-        Log.d(tag, "onCreate: done")
     }
 
     override fun onDestroy() {
@@ -40,8 +41,28 @@ class MainActivity : AppCompatActivity() {
         downloadData?.cancel(true)
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(STATE_AMOUNT, selectedFeedAmount)
+        outState.putString(STATE_OPTION, selectedFeedOption)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        selectedFeedAmount = savedInstanceState.getString(STATE_AMOUNT, "10")
+        selectedFeedOption = savedInstanceState.getString(STATE_OPTION, "topfreeapplications")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        downLoadAppleInformation()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.feeds_menu, menu)
+        if (selectedFeedAmount == "25") {
+            menu?.findItem(R.id.mnuTop25)?.isChecked = true
+        }
         return true
     }
 
